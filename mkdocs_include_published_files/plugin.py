@@ -21,17 +21,21 @@ class IncludePublishedFilesPlugin(BasePlugin):
             return False
 
     def on_files(self, files: Files, *, config: MkDocsConfig) -> Optional[Files]:
+
         # Getting the root location of markdown source files
         base_docs_url = config["docs_dir"]
 
         for file in files.documentation_pages():
             abs_path = os.path.join(base_docs_url, file.src_uri)
             with open(abs_path, 'r') as raw_file:
-                metadata = frontmatter.load(raw_file).metadata
+                try:
+                    metadata = frontmatter.load(raw_file).metadata
 
-                if not self.is_page_published(metadata):
-                    log.info(f"IncludePublishedFilesPlugin skipping {file.src_uri}")
-                    files.remove(file)
+                    if not self.is_page_published(metadata):
+                        log.info(f"IncludePublishedFilesPlugin skipping {file.src_uri}")
+                        files.remove(file)
+                except:
+                    log.error(f"IncludePublishedFilesPlugin found malformed frontmatter in {file.src_uri} (Skipping)!")
 
         return files
 
