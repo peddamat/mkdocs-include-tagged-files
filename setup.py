@@ -4,14 +4,14 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 
 setup(
-    name='mkdocs-exclude-tagged-files',
-    version='1.0.3',
-    packages=['mkdocs_exclude_tagged_files'],
-    url='https://github.com/JonasDoesThings/mkdocs-exclude-tagged-files',
+    name='mkdocs-include-published-files',
+    version='1.0.0',
+    packages=['mkdocs_include_published_files'],
+    url='https://github.com/peddamat/mkdocs-include-published-files',
     license='MIT',
-    author='Jonas Lorenz <jonas@jonasdoesthings.com>',
-    author_email='jonas@jonasdoesthings.com',
-    description='A mkdocs plugin that excludes files based on a list of frontmatter tags from being included in the final mkdocs output.',
+    author='Sam Peddamatham <peddamat@gmail.com>',
+    author_email='peddamat@gmail.com',
+    description='A mkdocs plugin that only includes files containing `publish: true` in their frontmatter.',
     long_description=(this_directory / "README.md").read_text(),
     long_description_content_type='text/markdown',
     keywords=['mkdocs', 'mkdocs-plugin'],
@@ -19,7 +19,7 @@ setup(
 
     entry_points={
         'mkdocs.plugins': [
-            'mkdocs_exclude_tagged_files = mkdocs_exclude_tagged_files.plugin:ExcludeTaggedFilesPlugin',
+            'mkdocs_include_published_files = mkdocs_include_published_files.plugin:IncludePublishedFilesPlugin',
         ]
     },
 )
